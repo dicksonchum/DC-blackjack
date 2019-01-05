@@ -14,7 +14,7 @@
 #include "Card.hpp"
 #include "Deck.hpp"
 
-using namespace std;
+//using namespace std;
 
 
 class Hand{

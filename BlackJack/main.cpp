@@ -11,14 +11,14 @@
 #include <cstdlib>
 #include <time.h>
 
-//#include "Table.hpp"
-#include "Player.hpp"
 #include "Deck.hpp"
-#include "Hand.hpp"
+#include "Player.hpp"
+//#include "Hand.hpp"
 #include "Dealer.hpp"
 //#include "Card.hpp"
+//#include "Table.hpp"
 
-using namespace std;
+//using namespace std;
 
 void printMenu();
 void promptReadPlayer(string&, double&);

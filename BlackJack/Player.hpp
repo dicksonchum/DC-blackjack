@@ -15,7 +15,7 @@
 #include "Hand.hpp"
 //#include "Deck.hpp"
 
-using namespace std;
+//using namespace std;
 
 class Player{
 

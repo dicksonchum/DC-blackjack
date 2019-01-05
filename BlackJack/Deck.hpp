@@ -12,7 +12,7 @@
 #include <cstdlib>
 #include "Card.hpp"
 
-using namespace std;
+//using namespace std;
 
 class Deck{
 public:
