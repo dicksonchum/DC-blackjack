@@ -31,11 +31,18 @@ int main() {
     bool done = false;
     
     int numOfGame = 0;
-    char input;
+    int numOfDeck = 0;
     int mode = 0;
+    char input;
     srand((unsigned)time(NULL));
-    Deck deck1;
-    //    promptReadPlayer(playerName, account);
+    
+    do{
+        cout << "How many decks of cards do you want to use? ";
+        cin >> numOfDeck;
+    }while(numOfDeck < 1);
+    
+    Deck deck1(numOfDeck);
+    promptReadPlayer(playerName, account);
     Player player;
     player.setName(playerName);
     player.setAccount(account);

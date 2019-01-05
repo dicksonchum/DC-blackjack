@@ -16,13 +16,13 @@
 
 class Deck{
 public:
-    Deck();
+    Deck(int numDeck);
 
     // optional
     Deck(const Deck&);
     ~Deck();
     
-    void fillDeck();
+    void fillDeck(int numDeck);
     void shuffleDeck();
     void printDeck();
     Card giveCard();
@@ -31,7 +31,7 @@ public:
 private:
     vector<Card> myDeck;
     vector<Card> usedDeck;
-    int numOfDeck = 2;
+//    int numOfDeck = 2;
 };
 
 

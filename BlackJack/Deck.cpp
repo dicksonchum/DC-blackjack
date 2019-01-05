@@ -12,9 +12,10 @@ int randomNum(int i){
     return rand() % i;
 }
 
-Deck::Deck(){
-    fillDeck();
+Deck::Deck(int numDeck){
+    fillDeck(numDeck);
     shuffleDeck();
+    printDeck();
 }
 
 // Don't really need custom made copy constructor because there's no dynamic mem allocation
@@ -26,7 +27,7 @@ Deck::~Deck(){
 
 }
 
-void Deck::fillDeck(){
+void Deck::fillDeck(int numDeck){
     int i = 0;
     int j = 0;
     int k = 0;
@@ -49,41 +50,31 @@ void Deck::fillDeck(){
             card = 'K';
         
         for(j = 0; j <= 3; j++){
-            for(k = 0; k < numOfDeck; k++){
+            for(k = 0; k < numDeck; k++){
                 myDeck.push_back(Card(card, j));
                 count++;
             }
         }
     }
-    if(count == 52 * numOfDeck){
-        cout << "Filled " << numOfDeck << " deck\n";
+    if(count == 52 * numDeck){
+        cout << "Filled " << numDeck << " deck\n";
     }
-    
-    // Printing before shuffle
-//    for(vector<Card>::iterator it = myDeck.begin(); it != myDeck.end(); it++){
-//        cout << myDeck[i].getCardNum() << " " << myDeck[i].getCardSuit() << endl;
-//    }
-    
 }
 
 void Deck::shuffleDeck(){
-    int i = 0;
     cout << "Shuffle begins\n";
     random_shuffle(myDeck.begin(), myDeck.end(), randomNum);
     cout << "Shuffle is done\n";
-    // Printing after shuffle
-    for(i = 0; i < 52; i++){
-        cout << myDeck[i].getCardNum() << " " << myDeck[i].getCardSuit() << endl;
-    }
-    cout << "Print is done\n" << endl;
 }
 
 void Deck::printDeck(){
     int i = 0;
+    cout << "Print Deck\n" << endl;
     cout << "Size : " << myDeck.size() << endl;
     for(i = 0; i < myDeck.size(); i++){
         cout << myDeck[i].getCardNum() << " " << myDeck[i].getCardSuit() << endl;
     }
+    cout << "Print is done\n" << endl;
 }
 
 Card Deck::giveCard(){
