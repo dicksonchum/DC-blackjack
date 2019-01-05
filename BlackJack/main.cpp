@@ -18,22 +18,21 @@
 //#include "Card.hpp"
 //#include "Table.hpp"
 
-//using namespace std;
-
 void printMenu();
 void promptReadPlayer(string&, double&);
 void promptReadPlayerName(string&, char&);
 void initGame(Player &playerObj, Dealer &dealerObj, Deck &deckObj);
 
 int main() {
-    
     string playerName = "Jon";
     double account = 10;
     string change;
+    
     bool done = false;
     
     int numOfGame = 0;
     char input;
+    int mode = 0;
     srand((unsigned)time(NULL));
     Deck deck1;
     //    promptReadPlayer(playerName, account);
@@ -44,6 +43,16 @@ int main() {
     dealer.setName("Dealer");
     dealer.setAccount(10000);
     
+    do{
+        cout << "This is a Blackjack simulator.\n";
+        cout << "There are two modes on this game.\n";
+        cout << "1. One is game mode, where player can make their own decision on hit or stand.\n";
+        cout << "2. Two is automation mode, where the program will automate player's decision with basic Blackjack strategy.\n\n";
+        cout << "Select game mode, 1 or 2.  Mode: ";
+        cin >> mode;
+        cout << "=========================================================\n";
+    }while(mode != 1 && mode != 2);
+    
     while(!done){
         // check if deck has enough card;
         if(deck1.getDeckSize() < 15){
@@ -53,37 +62,30 @@ int main() {
             cout << "\nPlayer wins = " << player.numOfWin();
             cout << "\nDealer wins = " << dealer.numOfWin();
             cout << "\nDraw = " << numOfGame - player.numOfWin() - dealer.numOfWin() << endl;
-            
             break;
         }
         
         initGame(player, dealer, deck1);
+        
+        
         // playerDecisionAutomation will automate player's decision based on basic Blackjack Strategy
         // playerDecision will allow player to decide whether to hit or stand
+        if(mode == 1)
+            player.playerDecision(player, deck1);
+        else if(mode == 2)
+            player.playerDecisionAutomation(player, dealer, deck1);
+        else{
+            cout << "Mode != 1 or 2.   *ERROR*\n";
+            break;
+        }
         
-        player.playerDecisionAutomation(player, dealer, deck1);
-//        player.playerDecision(player, deck1);
-//
-//        if(player.playerDecisionAutomation(player, dealer, deck1)){
-////        if(player.playerDecision(player, deck1)){
-//            cout << "Player's hand is " << player.getValue() << endl;
-//        }
-//        else{
-//            cout << "Player's hand exceeds 21.\n";
-//        }
         cout << endl;
         dealer.dealerDecision(deck1);
-//        if(dealer.dealerDecision(deck1)){
-//            cout << "Dealer has 17 - 21\n";
-//        }
-//        else{
-//            cout << "Dealer busts\n";
-//        }
         
         dealer.game(player);
         cout << "Done game? (y/n)\n\n";
-        //        cin >> input;
-        cout << "================================\n";
+//        cin >> input;
+        cout << "=========================================================\n";
         input = 'n';
         if (input == 'y')
             done = true;
@@ -163,7 +165,6 @@ void promptReadPlayer(string& fullName, double& account){
     string lastName;
     string change;
     
-    
     // simply get name here and create Player object in Table.cpp
     do{
         cout << "Enter Your First Name: ";
@@ -202,75 +203,3 @@ void initGame(Player &playerObj, Dealer &dealerObj, Deck &deckObj){
     playerObj.dealSecondCard(deckObj);
     dealerObj.printDealerHand();
 }
-
-/*
-bool playerDecision(Player &playerObj, Deck &deckobj){
-    char input;
-    
-    while(playerObj.getValue() < 22){
-        playerObj.printMyHand();
-        do{
-            cout << "Please input 'h' or 's'.\n";
-            cout << "Hit or stand? (h/s) ";
-            cin >> input;
-        }while(input != 'h' && input != 's');
-        
-        if(input == 'h'){
-            playerObj.hit(deckobj);
-        }
-        else{
-            playerObj.stand();
-            return true;
-        }
-    }
-    return false;
-}
-
-bool playerDecisionAutomation(Player &playerObj, Dealer &dealerObj, Deck &deckobj){
-    char input;
-    
-    if(playerObj.getValue() == 21){
-        cout << "BlackJack 21\n";
-        return true;
-    }
-    
-    while(playerObj.getValue() <= 21){
-        playerObj.printMyHand();
-        input = 's';
-        if(playerObj.getValue() >= 9 && playerObj.getValue() <= 11){
-            cout << "Double down\n";
-            input = 'd';
-        }
-        else if(playerObj.getValue() <= 9){
-            input = 'h';
-        }
-        else if(playerObj.getValue() >= 12 && playerObj.getValue() <= 16 && dealerObj.getValue() <= 6){
-            cout << "Dealer has high chance to bust\n";
-            input = 's';
-        }
-        else if(playerObj.getValue() - 10 < dealerObj.getValue() && playerObj.getValue() <= 17){
-            cout << "Player hits for higher chance to win\n";
-            input = 'h';
-        }
-        else{
-            input = 's';
-        }
-        
-        
-        if(input == 'h'){
-            playerObj.hit(deckobj);
-        }
-        else if(input == 'd'){
-            playerObj.hit(deckobj);
-            return true;
-        }
-        else{
-            playerObj.stand();
-            cout << endl;
-            return true;
-        }
-    }
-    
-    return false;
-}
-*/
