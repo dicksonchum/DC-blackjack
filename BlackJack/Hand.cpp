@@ -15,29 +15,29 @@ Hand::Hand(){
 
 void Hand::startGame(Card card){
     newHand.clear();
-    newHand.push_back(card);
-//    newHand.push_back(card2);
+    handValue = 0;
+    indexOfAce = -1;
+    numOfAceInHand = 0;
+    addCard(card);
 }
 
 void Hand::printHand(){
     int i = 0;
     long int handSize = newHand.size();
-    int sum = 0;
     for(i = 0; i < handSize; i++){
-        sum += newHand[i].getCardValue();
         newHand[i].printCard();
     }
-    
-    cout << "Value is " << sum << endl << endl;
+    cout << "Value is " << handValue << endl << endl;
 }
 
 void Hand::addCard(Card card){
     newHand.push_back(card);
+    setHandValue(card);
+    if(card.getCardNum() == 'A'){
+        indexOfAce = int(newHand.size()) - 1;
+        numOfAceInHand++;
+    }
 }
-
-//void Hand::printDealerHand(){
-//    newHand[0].printCard();
-//}
 
 void Hand::startDealerGame(Card card){
     newHand.clear();
@@ -45,14 +45,17 @@ void Hand::startDealerGame(Card card){
 }
 
 int Hand::getHandValue(){
-    int i = 0;
-    int value = 0;
-    long int handSize = newHand.size();
-    for(i = 0; i < handSize; i++){
-        value += newHand[i].getCardValue();
-    }
-    return value;
+    return handValue;
 }
+
+void Hand::setHandValue(Card card){
+    handValue += card.getCardValue();
+    if(handValue > 21 && numOfAceInHand > 0){
+        handValue = handValue - 10;
+        numOfAceInHand--;
+    }
+}
+
 
 int Hand::getNumOfCards(){
     return (int)newHand.size();

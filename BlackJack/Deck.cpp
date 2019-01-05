@@ -8,6 +8,10 @@
 
 #include "Deck.hpp"
 
+int randomNum(int i){
+    return rand() % i;
+}
+
 Deck::Deck(){
     fillDeck();
     shuffleDeck();
@@ -23,11 +27,9 @@ Deck::~Deck(){
 }
 
 void Deck::fillDeck(){
-//    srand ( unsigned ( std::time(0) ) );
-    srand((unsigned)time(NULL));
-    
     int i = 0;
     int j = 0;
+    int k = 0;
     int count = 0;
     
     for(i = 1; i <= 13; i++){
@@ -47,13 +49,14 @@ void Deck::fillDeck(){
             card = 'K';
         
         for(j = 0; j <= 3; j++){
-            myDeck.push_back(Card(card, j));
-            count++;
-//            myDeck[count++] = Card(card, j);
+            for(k = 0; k < numOfDeck; k++){
+                myDeck.push_back(Card(card, j));
+                count++;
+            }
         }
     }
-    if(count == 52){
-        cout << "Filled one deck\n";
+    if(count == 52 * numOfDeck){
+        cout << "Filled " << numOfDeck << " deck\n";
     }
     
     // Printing before shuffle
@@ -64,11 +67,11 @@ void Deck::fillDeck(){
 }
 
 void Deck::shuffleDeck(){
-    int i;
+    int i = 0;
     cout << "Shuffle begins\n";
-    random_shuffle(myDeck.begin(), myDeck.end());
+    random_shuffle(myDeck.begin(), myDeck.end(), randomNum);
     cout << "Shuffle is done\n";
-    // Printing after shuffle, not really random shuffle
+    // Printing after shuffle
     for(i = 0; i < 52; i++){
         cout << myDeck[i].getCardNum() << " " << myDeck[i].getCardSuit() << endl;
     }
@@ -85,6 +88,7 @@ void Deck::printDeck(){
 
 Card Deck::giveCard(){
     Card card = myDeck[0];
+    usedDeck.push_back(card);
     myDeck.erase(myDeck.begin());
     return card;
 }

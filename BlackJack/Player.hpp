@@ -26,21 +26,26 @@ public:
     Player(string playerName, double playerAccount);
     ~Player();
     
-    
     void setMyHand(Deck &deck);
+    void dealSecondCard(Deck &deck);
     void hit(Deck &deck);
     void stand();
+    bool playerDecision(Player &playerObj, Deck &deckobj);
+    bool playerDecisionAutomation(Player &playerObj, Player &dealerObj, Deck &deckobj);
     
     int getValue();
+    void setValue();
     void printMyHand();
-    
-    
     
     
     string getName() const;
     double getAccount() const;
     void setName(string playerName);
     void setAccount(double playerAccount);
+    
+    int numOfWin() const;
+    void winGame();
+    
     
     void cashOut();
     void changeAccount(double playerAccount);
@@ -49,7 +54,7 @@ protected:
     string newName;
     double newAccount;
     Hand myHand;
-    int myValue;
+    int win;
 };
 
 

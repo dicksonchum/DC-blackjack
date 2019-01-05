@@ -9,10 +9,10 @@
 #ifndef Deck_hpp
 #define Deck_hpp
 #include <vector>
-#include <ctime>
 #include <cstdlib>
 #include "Card.hpp"
 
+using namespace std;
 
 class Deck{
 public:
@@ -29,8 +29,9 @@ public:
     long int getDeckSize() const;
     
 private:
-//    Card myDeck[52];
     vector<Card> myDeck;
+    vector<Card> usedDeck;
+    int numOfDeck = 2;
 };
 
 

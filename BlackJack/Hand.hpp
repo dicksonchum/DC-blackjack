@@ -21,19 +21,20 @@ class Hand{
 public:
     Hand();
     void startGame(Card card);
+    void startDealerGame(Card card);
     
     void printHand();
     void addCard(Card card);
     
-//    void printDealerHand();
-    void startDealerGame(Card card);
-    
     int getHandValue();
+    void setHandValue(Card card);
     int getNumOfCards();
-    
     
 private:
     vector<Card> newHand;
+    int indexOfAce;
+    int numOfAceInHand;
+    int handValue;
 };
 
 #endif /* Hand_hpp */

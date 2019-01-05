@@ -13,32 +13,45 @@ void Dealer::setDealerHand(Deck &deck){
     myHand.startGame(deck.giveCard());
 }
 
-void Dealer::printHand(){
+void Dealer::printDealerHand(){
     cout << "Dealer's hand is\n";
     myHand.printHand();
 }
 
 bool Dealer::dealerDecision(Deck &deck){
     myHand.addCard(deck.giveCard());
+    cout << "Dealer decision\n";
     while(getValue() < 17){
         hit(deck);
     }
-    if(getValue() > 21)
+    printDealerHand();
+    if(getValue() > 21){
         return false;
-    
+    }
     return true;
 }
 
-void Dealer::game(Player player){
+void Dealer::game(Player &player){
     // check if player or dealer win
-    
-    if(player.getValue() == myHand.getHandValue()){
+    cout << "Player : " << player.getValue() << endl;
+    cout << "Dealer : " << getValue() << endl;
+    if(player.getValue() >= 22){
+        winGame();
+        cout << "Player busts, Dealer wins\n";
+    }
+    else if(myHand.getHandValue() >= 22){
+        player.winGame();
+        cout << "Dealer busts, Player wins\n";
+    }
+    else if(player.getValue() == myHand.getHandValue()){
         cout << "Draw\n";
     }
     else if(player.getValue() > myHand.getHandValue()){
+        player.winGame();
         cout << "Player wins\n";
     }
-    else
+    else{
+        winGame();
         cout << "Dealer wins\n";
-    
+    }
 }

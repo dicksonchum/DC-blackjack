@@ -15,9 +15,9 @@
 class Dealer : public Player{
 public:
     void setDealerHand(Deck &deck);
-    void printHand();
+    void printDealerHand();
     bool dealerDecision(Deck &deck);
-    void game(Player player);
+    void game(Player &player);
     
 };
 

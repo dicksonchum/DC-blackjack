@@ -78,6 +78,7 @@
 		D41984EB21DFF2D600BC0D1E /* BlackJack */ = {
 			isa = PBXGroup;
 			children = (
+				D41984EC21DFF2D600BC0D1E /* main.cpp */,
 				D41984FA21DFF31900BC0D1E /* Card.cpp */,
 				D41984F621DFF31800BC0D1E /* Card.hpp */,
 				D41984F821DFF31800BC0D1E /* Dealer.cpp */,
@@ -92,7 +93,6 @@
 				D41984F921DFF31800BC0D1E /* Player.hpp */,
 				D41984FC21DFF31900BC0D1E /* Table.cpp */,
 				D41984FD21DFF31900BC0D1E /* Table.hpp */,
-				D41984EC21DFF2D600BC0D1E /* main.cpp */,
 			);
 			path = BlackJack;
 			sourceTree = "<group>";
