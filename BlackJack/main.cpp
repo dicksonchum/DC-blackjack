@@ -18,7 +18,6 @@
 //#include "Card.hpp"
 //#include "Table.hpp"
 
-void printMenu();
 void promptReadPlayer(string&, double&);
 void promptReadPlayerName(string&, char&);
 void initGame(Player &playerObj, Dealer &dealerObj, Deck &deckObj);
@@ -65,16 +64,10 @@ int main() {
         // check if deck has enough card;
         if(deck1.getDeckSize() < 15){
             cout << "Deck is less than 15\n";
-//            cout << "Size = " << deck1.getDeckSize() << endl << endl;
-//            cout << "Num of Games = " << numOfGame;
-//            cout << "\nPlayer wins = " << player.numOfWin();
-//            cout << "\nDealer wins = " << dealer.numOfWin();
-//            cout << "\nDraw = " << numOfGame - player.numOfWin() - dealer.numOfWin() << endl;
             break;
         }
         cout << "Game " << numOfGame + 1 << endl;
         initGame(player, dealer, deck1);
-        
         
         // playerDecisionAutomation will automate player's decision based on basic Blackjack Strategy
         // playerDecision will allow player to decide whether to hit or stand
@@ -105,75 +98,11 @@ int main() {
         cout << "=========================================================\n";
         
         numOfGame++;
-        
-        /*
-         printMenu();
-         cout << "Select an option: ";
-         cin >> input;
-         // Input for player
-         
-         switch(input){
-         case 'i': {
-         promptReadPlayer(playerName, account);
-         Player po;
-         po.setName(playerName);
-         po.setAccount(account);
-         cout << playerName << endl;
-         break;
-         }
-         case 'd': {
-         
-         break;
-         }
-         case 's': {
-         
-         break;
-         }
-         case 'p': {
-         
-         break;
-         }
-         case 'r': {
-         
-         break;
-         }
-         case 'f': {
-         
-         break;
-         }
-         case 'z': {
-         cout << "Print filled deck\n";
-         deck1.printDeck();
-         break;
-         }
-         case 'q': {
-         // Stop application.
-         done = true;
-         break;
-         }
-         }
-         */
     }
     
     doneGame(player, dealer, deck1, numOfGame);
     
     return 0;
-}
-
-void printMenu(){
-    // Print user for input option
-    cout << endl;
-    cout << "===============================================" << endl;
-    cout << "Options" << endl;
-    cout << " i: Insert new player" << endl;
-    cout << " d: Remove a player" << endl;
-    cout << " s: Search for a player" << endl;
-    cout << " p: Print all player" << endl;
-    cout << " r: Print a range of player" << endl;
-    cout << " f: Read player data from file" << endl;
-    cout << " z: Print deck" << endl;
-    cout << " q: Quit application" << endl;
-    cout << "===============================================" << endl;
 }
 
 void promptReadPlayer(string& fullName, double& account){
@@ -187,7 +116,7 @@ void promptReadPlayer(string& fullName, double& account){
         cin >> firstName;
         cout << "Enter Your Last Name: ";
         cin >> lastName;
-        cout << "Enter Your Buy In: ";
+        cout << "Enter Your Buy In: (Betting has not implemented)";
         cin >> account;
         
         fullName = firstName + " " + lastName;
