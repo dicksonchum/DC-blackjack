@@ -26,6 +26,8 @@ public:
     Player(string playerName, double playerAccount);
     ~Player();
     
+    void setBet();
+    void getBet();
     void setMyHand(Deck &deck);
     void dealSecondCard(Deck &deck);
     void hit(Deck &deck);
@@ -44,8 +46,8 @@ public:
     void setAccount(double playerAccount);
     
     int numOfWin() const;
+//    void winGame(Player &playerObj);
     void winGame();
-    
     
     void cashOut();
     void changeAccount(double playerAccount);
@@ -55,6 +57,7 @@ protected:
     double newAccount;
     Hand myHand;
     int win;
+    double bet;
 };
 
 

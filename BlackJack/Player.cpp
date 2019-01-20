@@ -22,6 +22,20 @@ Player::Player(string playerName, double playerAccount){
 Player::~Player(){
 }
 
+void Player::setBet(){
+    int cash = 0;
+    do{
+        cout << "How much are you betting? ";
+        cin >> cash;
+    }while(cash <= 0);
+    bet = cash;
+}
+
+void Player::getBet(){
+    newAccount += bet;
+    bet = 0;
+}
+
 void Player::setMyHand(Deck &deck){
     myHand.startGame(deck.giveCard());
 }
@@ -36,9 +50,9 @@ void Player::printMyHand(){
 }
 
 void Player::hit(Deck &deck){
-    cout << "Hit\n";
+    cout << "Hit\n\n";
     myHand.addCard(deck.giveCard());
-    myHand.printHand();
+//    myHand.printHand();
 }
 
 void Player::stand(){
@@ -77,10 +91,15 @@ int Player::numOfWin() const{
     return win;
 }
 
+//void Player::winGame(Player &playerObj){
+//    bet = bet * 2;
+//    getBet();
+//    win++;
+//}
+
 void Player::winGame(){
     win++;
 }
-
 
 bool Player::playerDecision(Player &playerObj, Deck &deckobj){
     char input;
