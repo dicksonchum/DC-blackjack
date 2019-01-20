@@ -22,6 +22,7 @@ void printMenu();
 void promptReadPlayer(string&, double&);
 void promptReadPlayerName(string&, char&);
 void initGame(Player &playerObj, Dealer &dealerObj, Deck &deckObj);
+void doneGame(Player &playerObj, Dealer &dealerObj, Deck &deckObj, int numGame);
 
 int main() {
     string playerName = "Jon";
@@ -64,14 +65,14 @@ int main() {
         // check if deck has enough card;
         if(deck1.getDeckSize() < 15){
             cout << "Deck is less than 15\n";
-            cout << "Size = " << deck1.getDeckSize() << endl << endl;
-            cout << "Num of Games = " << numOfGame;
-            cout << "\nPlayer wins = " << player.numOfWin();
-            cout << "\nDealer wins = " << dealer.numOfWin();
-            cout << "\nDraw = " << numOfGame - player.numOfWin() - dealer.numOfWin() << endl;
+//            cout << "Size = " << deck1.getDeckSize() << endl << endl;
+//            cout << "Num of Games = " << numOfGame;
+//            cout << "\nPlayer wins = " << player.numOfWin();
+//            cout << "\nDealer wins = " << dealer.numOfWin();
+//            cout << "\nDraw = " << numOfGame - player.numOfWin() - dealer.numOfWin() << endl;
             break;
         }
-        
+        cout << "Game " << numOfGame + 1 << endl;
         initGame(player, dealer, deck1);
         
         
@@ -90,12 +91,18 @@ int main() {
         dealer.dealerDecision(deck1);
         
         dealer.game(player);
-        cout << "Done game? (y/n)\n\n";
-//        cin >> input;
+        if(mode == 1){
+            cout << "Done game? (y/n)\n\n";
+            cin >> input;
+            if (input == 'y'){
+                done = true;
+            }
+        }
+        else{
+            input = 'n';
+        }
+        
         cout << "=========================================================\n";
-        input = 'n';
-        if (input == 'y')
-            done = true;
         
         numOfGame++;
         
@@ -147,6 +154,8 @@ int main() {
          }
          */
     }
+    
+    doneGame(player, dealer, deck1, numOfGame);
     
     return 0;
 }
@@ -205,8 +214,18 @@ void promptReadPlayer(string& fullName, double& account){
 }
 
 void initGame(Player &playerObj, Dealer &dealerObj, Deck &deckObj){
+//    playerObj.setBet();
     playerObj.setMyHand(deckObj);
     dealerObj.setMyHand(deckObj);
     playerObj.dealSecondCard(deckObj);
     dealerObj.printDealerHand();
+}
+
+void doneGame(Player &playerObj, Dealer &dealerObj, Deck &deckObj, int numGame){
+    cout << "Deck is less than 15\n";
+    cout << "Size = " << deckObj.getDeckSize() << endl << endl;
+    cout << "Num of Games = " << numGame;
+    cout << "\nPlayer wins = " << playerObj.numOfWin();
+    cout << "\nDealer wins = " << dealerObj.numOfWin();
+    cout << "\nDraw = " << numGame - playerObj.numOfWin() - dealerObj.numOfWin() << endl;
 }
