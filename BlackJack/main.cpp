@@ -116,7 +116,7 @@ void promptReadPlayer(string& fullName, double& account){
         cin >> firstName;
         cout << "Enter Your Last Name: ";
         cin >> lastName;
-        cout << "Enter Your Buy In: (Betting has not implemented)";
+        cout << "Enter Your Buy In (Betting has not implemented) : ";
         cin >> account;
         
         fullName = firstName + " " + lastName;
@@ -151,7 +151,7 @@ void initGame(Player &playerObj, Dealer &dealerObj, Deck &deckObj){
 }
 
 void doneGame(Player &playerObj, Dealer &dealerObj, Deck &deckObj, int numGame){
-    cout << "Deck is less than 15\n";
+    cout << "\nDone Game\n";
     cout << "Size = " << deckObj.getDeckSize() << endl << endl;
     cout << "Num of Games = " << numGame;
     cout << "\nPlayer wins = " << playerObj.numOfWin();

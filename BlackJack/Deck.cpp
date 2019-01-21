@@ -74,7 +74,7 @@ void Deck::printDeck(){
     for(i = 0; i < myDeck.size(); i++){
         cout << myDeck[i].getCardNum() << " " << myDeck[i].getCardSuit() << endl;
     }
-    cout << "Print is done\n" << endl;
+    cout << "Print Deck is done\n" << endl;
 }
 
 Card Deck::giveCard(){
