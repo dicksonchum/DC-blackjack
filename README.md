@@ -4,9 +4,11 @@ A personal project of playing blackjack on terminal.
 Next Goal: Implement the betting system for player
 
 Game Mode:
+
 <img src="gameMode.gif" width="550">
 
 Automation Mode:
+
 <img src="automationMode.gif" width="550">
 
 
