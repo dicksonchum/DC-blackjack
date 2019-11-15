@@ -10,7 +10,10 @@
 #define Deck_hpp
 #include <vector>
 #include <cstdlib>
+#include <algorithm>
 #include "Card.hpp"
+
+using namespace std;
 
 class Deck{
 public:
