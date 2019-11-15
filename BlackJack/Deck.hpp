@@ -12,8 +12,6 @@
 #include <cstdlib>
 #include "Card.hpp"
 
-//using namespace std;
-
 class Deck{
 public:
     Deck(int numDeck);
@@ -27,11 +25,18 @@ public:
     void printDeck();
     Card giveCard();
     long int getDeckSize() const;
+    int getNumOfDeck() const;
+    
+    // Counting Card functions
+    void setCount(Card curCard);
+    int getCount() const;
     
 private:
     vector<Card> myDeck;
     vector<Card> usedDeck;
-//    int numOfDeck = 2;
+    int numOfDeck;
+    
+    int countingCard;
 };
 
 

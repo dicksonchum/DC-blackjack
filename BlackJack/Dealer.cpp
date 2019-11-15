@@ -19,7 +19,10 @@ void Dealer::printDealerHand(){
 }
 
 bool Dealer::dealerDecision(Deck &deck){
+    cout << "Dealer's turn\n";
     myHand.addCard(deck.giveCard());
+    printDealerHand();
+    
     cout << "Dealer decision\n";
     while(getValue() < 17){
         hit(deck);
@@ -37,21 +40,27 @@ void Dealer::game(Player &player){
     cout << "Dealer : " << getValue() << endl;
     if(player.getValue() >= 22){
         winGame();
-        cout << "Player busts, Dealer wins\n";
+        player.loseGame();
+        cout << "Player busts, Dealer wins, ";
     }
     else if(myHand.getHandValue() >= 22){
         player.winGame();
-        cout << "Dealer busts, Player wins\n";
+        cout << "Dealer busts, Player wins, ";
     }
     else if(player.getValue() == myHand.getHandValue()){
-        cout << "Draw\n";
+        player.drawGame();
+        cout << "Draw, ";
+//        cout << "Player's account = " << player.getAccount() << endl;
     }
     else if(player.getValue() > myHand.getHandValue()){
         player.winGame();
-        cout << "Player wins\n";
+        cout << "Player wins, ";
+//        cout << "Player's account = " << player.getAccount() << endl;
     }
     else{
         winGame();
-        cout << "Dealer wins\n";
+        player.loseGame();
+        cout << "Dealer wins, ";
     }
+    cout << "Player's account = " << player.getAccount() << endl;
 }

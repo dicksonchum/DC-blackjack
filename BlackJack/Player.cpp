@@ -24,11 +24,41 @@ Player::~Player(){
 
 void Player::setBet(){
     int cash = 0;
-    do{
-        cout << "How much are you betting? ";
+    cout << "Account: " << newAccount << "\nHow much are you betting? ";
+    cin >> cash;
+    
+    while(cash <= 0 || newAccount < cash){
+        cout << "Cash cannot be negative or Account does not have enough money. Try again\n\n"
+        << "Account: " << newAccount << "\nHow much are you betting? ";
         cin >> cash;
-    }while(cash <= 0);
+    }
+    newAccount -= cash;
     bet = cash;
+}
+
+void Player::autoSetBet(double numOfDeck){
+    int cash = 10;
+    double trueCount = cardCount/numOfDeck;
+    cout << "True count = " << trueCount << endl;
+//    int temp1 = 10;
+//    double tempTrueCount = 5/numOfDeck;
+//    cout << "checking math, " << temp1 * int((tempTrueCount - 0.5)/0.5) << endl;
+    int tempBet = cash * static_cast<int>((trueCount - 0.5)/0.5);
+    if(newAccount >= tempBet && trueCount >= 1.5){
+        bet = tempBet;
+//        bet = cash * cardCount/3;
+    }
+    else{
+        bet = cash;
+    }
+    newAccount -= bet;
+    cout << "Betting = " << bet << endl;
+    
+}
+
+void Player::doubleDownBet(){
+    newAccount -= bet;
+    bet *= 2;
 }
 
 void Player::getBet(){
@@ -80,6 +110,7 @@ void Player::setAccount(double playerAccount){
 }
 
 void Player::cashOut(){
+    cout << "Player cash out with $ " << newAccount << endl;
     newAccount = 0;
 }
 
@@ -91,50 +122,76 @@ int Player::numOfWin() const{
     return win;
 }
 
-//void Player::winGame(Player &playerObj){
-//    bet = bet * 2;
-//    getBet();
-//    win++;
-//}
-
 void Player::winGame(){
+    newAccount += 2 * bet;
+    bet = 0;
     win++;
 }
 
+void Player::drawGame(){
+    newAccount += bet;
+    bet = 0;
+}
+
+void Player::loseGame(){
+    bet = 0;
+}
+
+// return true if player busts
 bool Player::playerDecision(Player &playerObj, Deck &deckobj){
     char input;
+    
+    if(playerObj.getValue() == 21){
+        cout << "BlackJack 21\n";
+        return false;
+    }
     
     while(playerObj.getValue() < 22){
         playerObj.printMyHand();
         do{
-            cout << "Please input 'h' or 's'.\n";
-            cout << "Hit or stand? (h/s) ";
+            cout << "Please input 'h', 's' or 'd'.\n";
+            cout << "Hit, stand or double down? (h/s/d) ";
             cin >> input;
-        }while(input != 'h' && input != 's');
+        }while(input != 'h' && input != 's' && !(input == 'd' && canDoubleDown()));
         
-        if(input == 'h'){
+        if(input == 'd'){
+            playerObj.doubleDownBet();
             playerObj.hit(deckobj);
+            if(playerObj.getValue() <= 21){
+                return false;
+            }
+        }
+        else if(input == 'h'){
+            playerObj.hit(deckobj);
+            if(playerObj.getValue() == 21){
+                return false;
+            }
         }
         else{
             playerObj.stand();
-            return true;
+            return false;
         }
     }
-    return false;
+    
+    cout << "Player busts, value = " << playerObj.getValue() << endl << endl;
+    
+    return true;
 }
 
+
+// return true if player busts
 bool Player::playerDecisionAutomation(Player &playerObj, Player &dealerObj, Deck &deckobj){
     char input;
     
     if(playerObj.getValue() == 21){
         cout << "BlackJack 21\n";
-        return true;
+        return false;
     }
     
     while(playerObj.getValue() <= 21){
         playerObj.printMyHand();
         input = 's';
-        if(playerObj.getValue() >= 9 && playerObj.getValue() <= 11){
+        if(getValue() >= 9 && getValue() <= 11 && canDoubleDown()){
             cout << "Double down\n";
             input = 'd';
         }
@@ -149,25 +206,32 @@ bool Player::playerDecisionAutomation(Player &playerObj, Player &dealerObj, Deck
             cout << "Player hits for higher chance to win\n";
             input = 'h';
         }
-        else{
-            input = 's';
-        }
         
-        
+        // 'h' is hit
         if(input == 'h'){
             playerObj.hit(deckobj);
         }
+        // 'd' is double down
         else if(input == 'd'){
+            playerObj.doubleDownBet();
             playerObj.hit(deckobj);
-            return true;
+            return false;
         }
-        else{
+        else{ // stand
             playerObj.stand();
             cout << endl;
-            return true;
+            return false;
         }
     }
     cout << "Player busts, value = " << playerObj.getValue() << endl << endl;
     
-    return false;
+    return true;
+}
+
+void Player::getCount(Deck& deckobj){
+    cardCount = deckobj.getCount();
+}
+
+bool Player::canDoubleDown() {
+    return ((newAccount - bet*2) >= 0);
 }

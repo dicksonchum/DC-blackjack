@@ -13,20 +13,19 @@
 #include <iostream>
 #include <string>
 #include "Hand.hpp"
-//#include "Deck.hpp"
-
-//using namespace std;
+#include "Deck.hpp"
 
 class Player{
 
 public:
-    //Default Constructor
     Player();
-    //Overload Constructor
     Player(string playerName, double playerAccount);
     ~Player();
     
     void setBet();
+    void autoSetBet(double numOfDeck);
+    bool canDoubleDown();
+    void doubleDownBet();
     void getBet();
     void setMyHand(Deck &deck);
     void dealSecondCard(Deck &deck);
@@ -48,9 +47,13 @@ public:
     int numOfWin() const;
 //    void winGame(Player &playerObj);
     void winGame();
+    void drawGame();
+    void loseGame();
     
     void cashOut();
     void changeAccount(double playerAccount);
+    
+    void getCount(Deck& deckobj);
     
 protected:
     string newName;
@@ -58,6 +61,7 @@ protected:
     Hand myHand;
     int win;
     double bet;
+    int cardCount;
 };
 
 

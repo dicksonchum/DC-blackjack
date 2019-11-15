@@ -15,10 +15,11 @@ int randomNum(int i){
 Deck::Deck(int numDeck){
     fillDeck(numDeck);
     shuffleDeck();
-    printDeck();
+//    printDeck();
+    countingCard = 0;
+    numOfDeck = numDeck;
 }
 
-// Don't really need custom made copy constructor because there's no dynamic mem allocation
 Deck::Deck(const Deck& deckObj){
     
 }
@@ -81,9 +82,29 @@ Card Deck::giveCard(){
     Card card = myDeck[0];
     usedDeck.push_back(card);
     myDeck.erase(myDeck.begin());
+    setCount(card);
     return card;
 }
 
 long int Deck::getDeckSize() const {
     return myDeck.size();
+}
+
+void Deck::setCount(Card curCard){
+    int cardValue = curCard.getCardValue();
+//    cout << "Current card value = " << cardValue << endl;
+    if(cardValue >= 10)
+        countingCard--;
+    else if(cardValue >= 2 && cardValue <= 6)
+        countingCard++;
+    
+//    cout << "current count = " << countingCard << endl;
+}
+
+int Deck::getCount() const{
+    return countingCard;
+}
+
+int Deck::getNumOfDeck() const {
+    return numOfDeck;
 }

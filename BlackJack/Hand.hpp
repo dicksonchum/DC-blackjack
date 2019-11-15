@@ -32,7 +32,7 @@ public:
     
 private:
     vector<Card> newHand;
-    int indexOfAce;
+//    int indexOfAce;
     int numOfAceInHand;
     int handValue;
 };
