@@ -1,5 +1,7 @@
-all: main.o Card.o Deck.o Player.o Dealer.o Hand.o
-	g++ main.o Card.o Deck.o Player.o Dealer.o Hand.o
+all: blackjack
+
+blackjack: main.o Card.o Deck.o Player.o Dealer.o Hand.o
+	g++ main.o Card.o Deck.o Player.o Dealer.o Hand.o -o blackjack
 
 main.o: main.cpp
 	g++ -c -std=c++11 main.cpp
@@ -18,3 +20,6 @@ Dealer.o: Dealer.cpp Dealer.cpp
 
 Hand.o: Hand.cpp Hand.hpp
 	g++ -c -std=c++11 Hand.cpp
+
+clean:
+	rm -f *o blackjack
